@@ -38,6 +38,8 @@ export function expandSnake(amount) {
 
 export function onSnake(position, { ignoreHead = false } = {}) {
 	return snakeBody.some((segment, index) => {
+		if (ignoreHead && index === 0) return false;
+		
 		return equalPositions(segment, position)
 	})
 }
@@ -52,4 +54,13 @@ function addSegments() {
 	}
 	
 	newSegments = 0
+}
+
+export function getSnakeHead() {
+	return snakeBody[0]
+}
+
+// check if the snake touched a part of the body
+export function snakeIntersection() {
+	return onSnake(snakeBody[0], { ignoreHead: true })
 }
