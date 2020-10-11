@@ -7,7 +7,7 @@ let newSegments = 0;
 
 
 export function update() {
-	console.log("update snake");
+	addSegments();
 	
 	const inputDirection = getInputDirection()
 	
@@ -18,13 +18,9 @@ export function update() {
 	// move snake head
 	snakeBody[0].x += inputDirection.x;
 	snakeBody[0].y += inputDirection.y;
-	
-	console.log(snakeBody)
 }
 
 export function draw(gameBoard) {
-	console.log("draw snake");
-	
 	snakeBody.forEach(segment => {
 		const snakeElement = document.createElement('div');
 		
@@ -48,4 +44,12 @@ export function onSnake(position, { ignoreHead = false } = {}) {
 
 function equalPositions(pos1, pos2) {
 	return pos1.x === pos2.x && pos1.y === pos2.y
+}
+
+function addSegments() {
+	for (let i = 0; i < newSegments; i++) {
+		snakeBody.push({ ...snakeBody[ snakeBody.length - 1 ] })
+	}
+	
+	newSegments = 0
 }
